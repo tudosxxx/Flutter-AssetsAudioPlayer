@@ -256,16 +256,16 @@ public class Player : NSObject, AVAudioPlayerDelegate {
         }
         
         // Add handler for Pause Command
-        commandCenter.previousTrackCommand.isEnabled = (self.notificationSettings ?? NotificationSettings()).prevEnabled
-        self.targets["prev"] = commandCenter.previousTrackCommand.addTarget { [unowned self] event in
+        commandCenter.skipBackwardCommand.isEnabled = (self.notificationSettings ?? NotificationSettings()).prevEnabled
+        self.targets["prev"] = commandCenter.skipBackwardCommand.addTarget { [unowned self] event in
             self.channel.invokeMethod(Music.METHOD_PREV, arguments: [])
             
             return .success
         }
         
         // Add handler for Pause Command
-        commandCenter.nextTrackCommand.isEnabled = (self.notificationSettings ?? NotificationSettings()).nextEnabled
-        self.targets["next"] = commandCenter.nextTrackCommand.addTarget { [unowned self] event in
+        commandCenter.skipForwardCommand.isEnabled = (self.notificationSettings ?? NotificationSettings()).nextEnabled
+        self.targets["next"] = commandCenter.skipForwardCommand.addTarget { [unowned self] event in
             self.channel.invokeMethod(Music.METHOD_NEXT, arguments: [])
             
             return .success
@@ -296,10 +296,10 @@ public class Player : NSObject, AVAudioPlayerDelegate {
             commandCenter.pauseCommand.removeTarget(t)
         }
         if let t = self.targets["prev"] {
-            commandCenter.previousTrackCommand.removeTarget(t)
+            commandCenter.skipBackwardCommand.removeTarget(t)
         }
         if let t = self.targets["next"] {
-            commandCenter.nextTrackCommand.removeTarget(t)
+            commandCenter.skipForwardCommand.removeTarget(t)
         }
         self.targets.removeAll()
         
