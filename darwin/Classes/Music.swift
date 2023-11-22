@@ -257,6 +257,7 @@ public class Player : NSObject, AVAudioPlayerDelegate {
         
         // Add handler for Pause Command
         commandCenter.skipBackwardCommand.isEnabled = (self.notificationSettings ?? NotificationSettings()).prevEnabled
+        commandCenter.skipBackwardCommand.preferredIntervals = [15]
         self.targets["prev"] = commandCenter.skipBackwardCommand.addTarget { [unowned self] event in
             self.channel.invokeMethod(Music.METHOD_PREV, arguments: [])
             
@@ -265,6 +266,7 @@ public class Player : NSObject, AVAudioPlayerDelegate {
         
         // Add handler for Pause Command
         commandCenter.skipForwardCommand.isEnabled = (self.notificationSettings ?? NotificationSettings()).nextEnabled
+        commandCenter.skipForwardCommand.preferredIntervals = [15]
         self.targets["next"] = commandCenter.skipForwardCommand.addTarget { [unowned self] event in
             self.channel.invokeMethod(Music.METHOD_NEXT, arguments: [])
             
